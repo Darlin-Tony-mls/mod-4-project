@@ -17,7 +17,7 @@ async function loadArtworks() {
         return console.warn(`Sorry seems like there's been an error!`, error)
     }
     renderArtworks(data)
-    };
+    
     
     const ul = document.querySelector('#artwork-list')
     ul.addEventListener('click', async (Event) => {
@@ -32,7 +32,7 @@ async function loadArtworks() {
         console.log(data)
     })
 
-//};
+ };
 loadArtworks()
 
 
