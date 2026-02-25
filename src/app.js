@@ -1,5 +1,7 @@
 import { getArtworks, getArtworksBySearch, getArtworksById } from "./fetch.js";
 
+import { getFavorites, addFavorites, removeFavorites } from "./favorites.js";
+
 const renderArtworks = (arr) => {
     const ul = document.querySelector('#artwork-list')
      ul.innerHTML = ''
@@ -13,13 +15,28 @@ const renderArtworks = (arr) => {
 
 const renderSingleArt = (data) => {
     const section = document.querySelector('#artwork-detail')
-    section.innerHTML `
+    const favorites = getFavorites()
+    const isFavorited = favorites.includes(data.id)
+
+    section.innerHTML = `
     <h2>${data.title}</h2>
-    <p>${data.artist_display}</p>
     <p>${data.artist_display}</p>
     <p>${data.date_display}</p>
     <p>${data.medium_display}</p>
+    <button id="fave-btn"> ${isFavorited ? '❤️ Unfavorite' : '🤍 Favorite'}</button>
     `
+
+    document.querySelector('#fave-btn').addEventListener('click', () => {
+        if (isFavorited){
+            removeFavorites(data.id)
+        } else {
+            addFavorites(data.id)
+
+        }
+        renderSingleArt(data)
+    })
+
+
     
 }
 
