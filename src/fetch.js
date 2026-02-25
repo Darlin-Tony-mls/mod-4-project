@@ -34,7 +34,6 @@ export async function getArtworksById(id) {
         return { data: null, error: error }
     }
 }
-// getArtworksById(61668)
 
 export async function getArtworksBySearch(query) {
     try {
@@ -43,12 +42,14 @@ export async function getArtworksBySearch(query) {
             throw Error(`Fetch failed ${response.status} ${response.statusText}`)
         }
         const responseData = await response.json()
-        console.log(responseData.data)
+        console.log(responseData)  // ← log the whole thing, not just .data
         return { data: responseData.data, error: null }
     } catch (error) {
         return { data: null, error: error }
     }
 }
-// getArtworksBySearch(`Chelly Canyon`)
+
+
+
 
 
