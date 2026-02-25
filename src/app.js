@@ -11,13 +11,23 @@ const renderArtworks = (arr) => {
     })
 }
 
+    const renderSingleArt = (data) => {
+        const section = document.querySelector('#artwork-detail')
+        section.innerHTML = `
+        <h2>${data.title}</h2>
+        <p>${data.artist_display}</p>
+        <p>${data.date_display}</p>
+        <p>${data.medium_display}</p>`
+    }
+
+
 async function loadArtworks() {
     let { data, error } = await getArtworks()
     if (error) {
         return console.warn(`Sorry seems like there's been an error!`, error)
     }
     renderArtworks(data)
-    };
+    
     
     const ul = document.querySelector('#artwork-list')
     ul.addEventListener('click', async (Event) => {
@@ -29,10 +39,10 @@ async function loadArtworks() {
         if(error) {
             return console.warn('Error fetching artwork details', error)
         }
-        console.log(data)
+        renderSingleArt(data)
     })
 
-//};
+ };
 loadArtworks()
 
 
