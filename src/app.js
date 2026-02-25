@@ -11,6 +11,10 @@ const renderArtworks = (arr) => {
     })
 }
 
+const renderSingleArt = (data) => {
+    
+}
+
 async function loadArtworks() {
     let { data, error } = await getArtworks()
     if (error) {
