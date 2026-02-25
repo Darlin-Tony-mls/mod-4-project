@@ -2,7 +2,7 @@ import { getArtworks, getArtworksBySearch, getArtworksById } from "./fetch.js";
 
 const renderArtworks = (arr) => {
     const ul = document.querySelector('#artwork-list')
-
+     ul.innerHTML = ''
     arr.forEach((artwork) => {
         const li = document.createElement('li')
         li.textContent = artwork.title
@@ -44,6 +44,24 @@ async function loadArtworks() {
 
  };
 loadArtworks()
+
+const form = document.querySelector('#search-form')
+form.addEventListener('submit', async (e) => {
+    e.preventDefault()
+
+    const input = document.querySelector('#search')
+    const query = input.value
+
+    const {data,error} = await getArtworksBySearch (query)
+    if (error) {
+        return console.warn('search error', error)
+    }
+
+
+    renderArtworks(data)
+
+    form.reset()
+})
 
 
 
