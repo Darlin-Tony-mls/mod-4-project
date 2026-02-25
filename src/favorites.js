@@ -6,9 +6,11 @@ export const getFavorites = () => {
 
 
 export const addFavorites = (id) => {
-const favorites = getFavorites()
-favorites.push(id)
-localStorage.setItem('favorites', JSON.stringify(favorites))
+    const favorites = getFavorites()
+    if (!favorites.includes(id)) {
+        favorites.push(id)
+        localStorage.setItem('favorites', JSON.stringify(favorites))
+    }
 }
 
 export const removeFavorites = (id) => {
