@@ -13,6 +13,29 @@ const renderArtworks = (arr) => {
     })
 }
 
+  const renderFavorites = async () => {
+        const favorites = getFavorites()
+        const ul = document.querySelector('#favorites-list')
+        ul.innerHTML = ''
+
+        if (favorites.length === 0) {
+            ul.innerHTML = '<li>no favorites yet</li>'
+            return
+        }
+
+        for (const id of favorites)  {
+            const {data, error} = await getArtworksById(id)
+            if (error) continue
+
+
+            const li = document.createElement('li')
+            li.textContent = data.title
+            li.dataset.id = data.id
+            ul.append(li)
+        }
+
+    }
+
 const renderSingleArt = (data) => {
     const section = document.querySelector('#artwork-detail')
     const favorites = getFavorites()
@@ -34,12 +57,26 @@ const renderSingleArt = (data) => {
 
         }
         renderSingleArt(data)
+        renderFavorites()
     })
+
+  
+    
 
 
     
 }
 
+const favoriteList = document.querySelector('#favorites-list')
+favoriteList.addEventListener('click', async (e) => {
+    const li = e.target.closest('li')
+    if (!li || !li.dataset.id ) return
+
+    const {data, error} = await getArtworksById(li.dataset.id)
+    if (error) return console.warn('error fetching favorite', error)
+        renderSingleArt(data)
+})
+renderFavorites()
 async function loadArtworks() {
     let { data, error } = await getArtworks()
     if (error) {
@@ -59,6 +96,8 @@ async function loadArtworks() {
             return console.warn('Error fetching artwork details', error)
         }
         renderSingleArt(data)
+       
+
     })
 
  };
