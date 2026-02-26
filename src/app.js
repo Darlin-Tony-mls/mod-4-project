@@ -9,6 +9,10 @@ const renderArtworks = (arr) => {
         const li = document.createElement('li')
         li.textContent = artwork.title
         li.dataset.id = artwork.id
+        li.innerHTML = `
+        <p>${artwork.title}</p>
+        ${artwork.image_id? ` <img src="https://www.artic.edu/iiif/2/${artwork.image_id}/full/200,/0/default.jpg" alt="${artwork.title}">` : ''}
+        `
         ul.append(li)
     })
 }
