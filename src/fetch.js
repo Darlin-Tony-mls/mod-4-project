@@ -1,6 +1,6 @@
 export async function getArtworks() {
     try {
-        const response = await fetch(`https://api.artic.edu/api/v1/artworks`)
+        const response = await fetch(`https://api.artic.edu/api/v1/artworks?fields=id,title,image_id,artist_display,date_display,medium_display`)
         if (!response.ok) {
             throw Error(`Failed to load artwork${response.status} ${response.statusText}`);
         }
@@ -37,7 +37,7 @@ export async function getArtworksById(id) {
 
 export async function getArtworksBySearch(query) {
     try {
-        const response = await fetch(`https://api.artic.edu/api/v1/artworks/search?q=${query}`)
+        const response = await fetch(`https://api.artic.edu/api/v1/artworks/search?q=${query}&fields=id,title,image_id,artist_display,date_display,medium_display`)
         if (!response.ok) {
             throw Error(`Fetch failed ${response.status} ${response.statusText}`)
         }
